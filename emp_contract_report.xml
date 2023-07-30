@@ -1,0 +1,64 @@
+<odoo>
+
+    <record id="hr_emp_contract_report" model="ir.actions.report">
+        <field name="name">Print Emp Contract</field>
+        <field name="model">school.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">school.hr_emp_contract_report_template</field>
+        <field name="report_file">school.hr_emp_contract_report_template</field>
+        <field name="binding_model_id" ref="model_school_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="hr_emp_contract_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                    <div class="page">
+                            <h1 style="text-align:center;">
+                                Spacific Employees In Spacific Start Date
+                            </h1>
+                        <br/>
+                        <br/>
+                            <h4 style="text-align:left;">
+                                Start Date :
+                                <span t-esc="form['start_date']"/>
+                            </h4>
+                        <br/>
+                        <br/>
+                        <div>
+                            <table style="text-align:center; border: 2px solid black; width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="padding: 10px; background-color: #96D4D4;">Sequence</th>
+                                        <th style="padding: 10px; background-color: #96D4D4;">Empolyee Name</th>
+                                        <th style="padding: 10px; background-color: #96D4D4;">Start Date</th>
+                                        <th style="padding: 10px; background-color: #96D4D4;">State</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="contract_running_emps" t-as="emp">
+                                        <tr>
+                                            <td style="padding: 10px; background-color:#a3a375">
+                                                <span t-esc="emp_index +1"/>
+                                            </td>
+                                            <td style="padding: 10px; background-color:#a3a375">
+                                                <t t-esc="emp.get('name')"/>
+                                            </td>
+                                            <td style="padding: 10px; background-color:#a3a375">
+                                                <t t-esc="emp.get('date_start')"/>
+                                            </td>
+                                            <td style="padding: 10px; background-color:#a3a375">
+                                                <t t-esc="emp.get('state')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

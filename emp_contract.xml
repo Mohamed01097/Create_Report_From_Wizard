@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="inherit_emp_report_form">
+            <field name="name">Wizard form</field>
+            <field name="model">school.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="name"/>
+                    </group>
+                    <footer>
+                        <button name="generate_pdf_report" string="Generate Report" type="object"
+                                class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="emp_wizard_action_window">
+            <field name="name">Employee Report</field>
+            <field name="res_model">school.wizard</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="inherit_emp_report_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem name="EmpContract"
+                  id="school_emp_contract_menuitem"
+                  parent="hr.menu_hr_root"
+                  sequence="11"/>
+
+        <menuitem name="GenerateReport"
+                  id="school_emp_contract_report_production"
+                  parent="school_emp_contract_menuitem"
+                  sequence="10"
+                  action="emp_wizard_action_window"/>
+
+    </data>
+</odoo>
